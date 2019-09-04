@@ -10,7 +10,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FTN Name:    dotProduct
-;; DESCRIPTION: dotProduct takes two lists of numbers and proudces their dot product
+;; DESCRIPTION: dotProduct takes two lists of numbers and produces their dot product
 ;;              (or reports their incompatibility)
 (define (dotProduct l1 l2)
   (cond [(> (length l1) (length l2)) (displayln "Lists are incompatible")]
@@ -19,6 +19,25 @@
   )
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; FTN Name:    max (17.5)
+;; DESCRIPTION: max takes two lists of numbers and returns the larger list
+(define(max l1 l2)
+  (displayln "return bigger list here"))
+  ;(if (>(map (max2(l2 l1)))) l2 l1))
+
+(define (max2 a b)
+  (if (> b a) b a))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; FTN Name:    before-in-list? (17.11)
+;; DESCRIPTION: before-in-list? takes a list and 2 elements of the list. Returns
+;;              true if the second argument appears before the third argument. 
+(define (before-in-list? l1 e1 e2)
+  (displayln "return true if 2nd appears before 3rd")
+  )
+
 (define (removeAll l1 l2)
   (displayln "help me")
 )
@@ -26,8 +45,6 @@
 (define (lastLess l1 l2)
   (displayln "god left me unfinished")
 )
-
-
 
 ; test cases
 (dotProduct '(1 2) '(3 4))
