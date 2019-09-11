@@ -6,7 +6,7 @@
 ;; Brian Dinh
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; TODO: add implementations for 17.5
+;; TODO: add implementations for 17.5, typer, lastless
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FTN Name:    dotProduct
@@ -25,9 +25,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FTN Name:    max (17.5)
 ;; DESCRIPTION: max takes two lists of numbers and returns the larger list
-(define(max l1 l2)
-  (displayln "return bigger list here"))
-  ;(if (>(map (max2(l2 l1)))) l2 l1))
+(define(max l1)
+  (cond
+    [(empty? l1) "bad"]
+    [(empty? (rest l1)) (first l1)]
+    [else (max2  (first l1) (max (rest l1)))]
+    )
+)
+    
 
 (define (max2 a b)
   (if (> b a) b a))
@@ -45,16 +50,22 @@
     )
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; FTN Name:    remove-all
+;; DESCRIPTION: 
 (define (removeAll list-a list-b)
-  (displayln "help me")
+  (cond
+    [(empty? list-b) list-a]
+    [else (removeAll (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
+  )
 )
-
+    
 (define (lastLess l1 l2)
-  (displayln "god left me unfinished")
+  (displayln "lol")
 )
 
 (define (typer nl)
-  (displayln "eskeittt")
+   (displayln "lol")
 )
 
 ; test cases
@@ -63,5 +74,9 @@
 ;(dotProduct '(1 2 3) '(4 5))
 ;(dotProduct '(1 2 ) '(4 5 6))
 
-(before-in-list? '(1 2) 1 2)
-(before-in-list? '(2 1) 1 2)
+;(before-in-list? '(1 2) 1 2)
+;(before-in-list? '(2 1) 1 2)
+
+(removeAll '(a b b c c d) '(a c a))
+
+(max '(0 2))
