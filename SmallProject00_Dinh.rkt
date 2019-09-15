@@ -1,12 +1,16 @@
 #lang racket
 
+(require test-engine/racket-tests)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CS 3180 Fall '19
 ;; Small Project 00
 ;; Brian Dinh
+;;
+;; Only the following references were used to inform
+;; the development solutions in this file:
+;; http://docs.racket-lang.org/guide/Lists__Iteration__and_Recursion.html
+;; https://stackoverflow.com/questions/13550482/removing-elements-from-a-list-in-scheme
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; TODO: add implementations for typer, lastless
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FTN Name:    dotProduct
@@ -16,24 +20,23 @@
   (cond
     [(empty? l1) #f]
     [(empty? l2) #f]
-    [(> (length l1) (length l2)) (displayln "Lists are incompatible")]
-    [(> (length l2) (length l1)) (displayln "Lists are incompatible")]
-    [else (define dotProduct (apply + (map * l1 l2))) (displayln dotProduct)]
+    [(> (length l1) (length l2)) #f]
+    [(> (length l2) (length l1)) #f]
+    [else (define dotProduct (apply + (map * l1 l2))) dotProduct]
   )
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FTN Name:    max (17.5)
-;; DESCRIPTION: max takes two lists of numbers and returns the larger list
+;; DESCRIPTION: max takes one or more numeric arguments and returns the largest of them.
 (define(max l1)
   (cond
-    [(empty? l1) "bad"]
+    [(empty? l1) #f]
     [(empty? (rest l1)) (first l1)]
     [else (max2  (first l1) (max (rest l1)))]
     )
 )
     
-
 (define (max2 a b)
   (if (> b a) b a))
 
@@ -51,32 +54,34 @@
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FTN Name:    remove-all
-;; DESCRIPTION: 
+;; FTN Name:    removeAll
+;; DESCRIPTION: removeAll takes two lists, list-a and list-b and returns a list
+;;              containing only the items in list-a that are not also in list-b.
 (define (removeAll list-a list-b)
   (cond
     [(empty? list-b) list-a]
     [else (removeAll (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
   )
 )
-    
-(define (lastLess l1 l2)
-  (displayln "lol")
-)
 
-(define (typer nl)
-   (displayln "lol")
-)
+;; test cases
+(check-expect (dotProduct '(1 2) '(3 4)) 11)
+(check-expect (dotProduct '(1 1) '(1 1)) 2)
+(check-expect (dotProduct '(1 2 3) '(4 5)) #f)
+(check-expect (dotProduct '(1 2) '(4 5 6)) #f)
 
-; test cases
-;(dotProduct '(1 2) '(3 4))
-;(dotProduct '(1 2 3) '(4 5 6))
-;(dotProduct '(1 2 3) '(4 5))
-;(dotProduct '(1 2 ) '(4 5 6))
+(check-expect (max '(1 3 2)) 3)
+(check-expect (max '()) #f)
+(check-expect (max '(10 16 19 33 22)) 33)
 
-;(before-in-list? '(1 2) 1 2)
-;(before-in-list? '(2 1) 1 2)
 
-(removeAll '(a b b c c d) '(a c a))
+(check-expect (before-in-list? '(1 2) 1 2) #t)
+(check-expect (before-in-list? '(1 2) 2 1) #f)
+(check-expect (before-in-list? '() 2 1) #f)
 
-(max '(0 2))
+(check-expect (removeAll '(a b b c c d) '(a c a)) '(b b d))
+(check-expect (removeAll '(a b b c c d) '(a c b)) '(d))
+(check-expect (removeAll '() '(c)) '())
+
+
+(test)
