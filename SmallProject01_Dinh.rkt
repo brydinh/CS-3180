@@ -1,8 +1,6 @@
 #lang racket
 (require 2htdp/batch-io)
 
-;(time (begin (read-lines "words.txt") 'done))
-
 (define wordLst (read-lines "words.txt"))
 
 ; TODO: Optimize filters/code
@@ -18,7 +16,8 @@
                                                         (filter (lambda (x) (not (string-contains? x "O")))
                                                                 (filter (lambda (x) (not (string-contains? x "U"))) wordLst))))))))) ", "))
 
-; Part 2:
+
+; Part 2: Counts how frequent Z and z occurs in wordLst (read from words.txt).
 (define (count-of lst)
   [cond
     [(null? lst) 0]
@@ -32,6 +31,6 @@
   (+ (count (lambda (x) (eq? x #\z)) word) (count (lambda (x) (eq? x #\Z)) word))
 )
 
-(displayln filteredLst)
 
+(displayln filteredLst)
 (count-of wordLst)
