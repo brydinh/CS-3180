@@ -30,7 +30,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Part 2: Counts how frequent the letters 'Z' and 'z' occurs in words.txt. The
-;;         Count-of function detects if 'Z' or 'z' are present in the string,
+;;         count-of function detects if 'Z' or 'z' are present in the string,
 ;;         and the helper function count-char counts the total amount of time 'Z'
 ;;         or 'z' occurs per string.
 
