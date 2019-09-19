@@ -6,15 +6,25 @@
 ; TODO: Optimize filters/code
 
 ; Part 1: Reads words.txt and filters out 7 letter words that do not contain the letters e, i, o, or u. Output will be on the same line seperated by commas.
-(define filteredLst (string-join (filter (lambda (x) (eq? (string-length x) 7))
-        (filter (lambda (x) (not (string-contains? x "e")))
-                (filter (lambda (x) (not (string-contains? x "i")))
-                        (filter (lambda (x) (not (string-contains? x "o")))
-                                (filter (lambda (x) (not (string-contains? x "u")))
-                                        (filter (lambda (x) (not (string-contains? x "E")))
-                                                (filter (lambda (x) (not (string-contains? x "I")))
-                                                        (filter (lambda (x) (not (string-contains? x "O")))
-                                                                (filter (lambda (x) (not (string-contains? x "U"))) wordLst))))))))) ", "))
+
+(define (contains? word)
+  (cond
+    [(empty? word) #f]
+    [(string-contains? word "e" ) #f]
+    [(string-contains? word "i" ) #f]
+    [(string-contains? word "o" ) #f]
+    [(string-contains? word "u" ) #f]
+    [(string-contains? word "E" ) #f]
+    [(string-contains? word "I" ) #f]
+    [(string-contains? word "O" ) #f]
+    [(string-contains? word "U" ) #f]
+    [else #t]
+    )
+)
+
+(define filteredLst
+  (string-join (filter (lambda (x) (eq? (string-length x) 7))
+                       (filter (lambda (x) (contains? x)) wordLst)) ", "))
 
 
 ; Part 2: Counts how frequent Z and z occurs in wordLst (read from words.txt).
