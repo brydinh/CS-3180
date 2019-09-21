@@ -17,7 +17,9 @@
 ; only three are available in letters.
 ; CODE:
 
-;TODO Figure out correct logic for contains?
+; Gods I was strong then
+
+; TODO Figure out correct logic for contains?
 (define (find-words letters)
   (string-join (filter (lambda (x) (eq? (string-length x) 7))
                        (filter (lambda (x) (contains? (string->list x) (string->list (string-append* letters)))) wordLst)) ", ")  
