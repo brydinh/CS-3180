@@ -17,50 +17,45 @@
 ; only three are available in letters.
 ; CODE:
 
-; Gods I was strong then
+; help
 
-; TODO Figure out correct logic for contains?
+; TODO Figure out how to account for one letter/each
+
 (define (find-words letters)
-  (string-join (filter (lambda (x) (eq? (string-length x) 7))
-                       (filter (lambda (x) (contains? (string->list x) (string->list (string-append* letters)))) wordLst)) ", ")  
+  (string-downcase (string-join (filter (lambda (x) (eq? (string-length x) 7))
+                       (filter (lambda (x) (contains? (string->list (string-downcase x)) (string->list (string-append* letters)))) wordLst)) ", "))
 )
 
 ; BOTH PASSED ARGUMENTS ARE CHAR LISTS
 (define (contains? list-a list-b) ; A = (a z i m i n o), B = (z y m o m i n o i x a)
   (cond
-    [(and (empty? list-b) (empty? list-a)) #t]
-    [(and (empty? list-b) (not (empty? list-a))) #f]
+    [(and (empty? list-b) (empty? list-a)) #t] ; both list-a and list-b are composed of each other.
+    [(and (empty? list-b) (not (empty? list-a))) #f] ; list-a and list-b are inherently different  
     [else (contains? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
   )
 )
 
-(define (removeAll list-a list-b)
-  (cond
-    [(empty? list-b) list-a]
-    [else (removeAll (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
-  )
-)
-
-; Maximon, monimia, monomya
-; ammonia, amninia, anonyma,
-
-;(removeAll '(a z i m i n o) '(z y m o m i n o i x a))
-;(removeAll '(m a m m o n i) '(z y m o m i n o i x a))
-;(removeAll '(m a x i m i n) '(z y m o m i n o i x a))
-;(removeAll '(m a x i m o n) '(z y m o m i n o i x a))
-;(removeAll '(m i n i m a x) '(z y m o m i n o i x a))
-;(removeAll '(m o n i m i a) '(z y m o m i n o i x a))
-;(removeAll '(m o n o m y a) '(z y m o m i n o i x a))
-;(removeAll '(b y m o m i n) '(z y m o m i n o i x a))
+; Currently prints:
+;                  Amazona, ammonia, amninia, Anamnia, anonyma, azimino, Izanami, mammoni, Manannn,
+;                  mannaia, manomin, Manxman, manzana, Manzoni, maximin, Maximon, Mazzini, minimax,
+;                  Moazami, monaxon, Monimia, monnion, monoazo, Monomya, mononym, Monozoa, moonman,
+;                  Naamana, Naamann, Nanaimo, omniana, Oxonian, oxonian, xoanona, yamamai, yamanai,
+;                  Yannina, Zannini, Zanonia, Zizania, zizania, zoonomy, zymomin"
 
 
-
-;(removeAll '(a z i m i n o) '(z y m o m i n o i x a))
-;(removeAll '(a b b c c d) '(a c a))
-
-; displayln (find-words '("zymomin" "omixa"))) should output
-; azimino, mammoni, maximin, maximon, minimax, monimia, monomya, zymomin
+; Should output- azimino, mammoni, maximin, maximon, minimax, monimia, monomya, zymomin
   
+
+;(contains? '(a z i m i n o) '(z y m o m i n o i x a))
+;(contains? '(m a m m o n i) '(z y m o m i n o i x a))
+;(contains? '(m a x i m i n) '(z y m o m i n o i x a))
+;(contains?  '(M a x i m o n) '(z y m o m i n o i x a))
+;(contains? '(m i n i m a x) '(z y m o m i n o i x a))
+;(contains? '(m o n i m i a) '(z y m o m i n o i x a))
+;(contains? '(m o n o m y a) '(z y m o m i n o i x a))
+;(contains? '(z y m o m i n) '(z y m o m i n o i x a))
+
+
 (find-words '("zymomin" "omixa"))
 
 
