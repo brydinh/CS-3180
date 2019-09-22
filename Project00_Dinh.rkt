@@ -20,7 +20,7 @@
 ; TODO: Optimize this flaming piece of shit
 
 (define (find-words letters)
-  (string-downcase (string-join (filter (lambda (x) (killMe? (string->list (string-downcase x)) (string->list (string-append* letters))))
+  (string-downcase (string-join (filter (lambda (x) (killMe? (string->list (string-downcase x)) (string->list (string-downcase (string-append* letters)))))
           (filter (lambda (x) (eq? (string-length x) 7)) (filter (lambda (x) (contains? (string->list (string-downcase x)) (string->list (string-append* letters)))) wordLst))) ", "))
 )
 
@@ -40,9 +40,8 @@
    )
 )
 
-(define (how-many items char)
-  (define r (regexp (format "[^~a]" char)))
-  (string-length (regexp-replace* r (list->string items) ""))
+(define (how-many word char)
+  (count (lambda (x) (eq? x char)) word)
 )
 
 (find-words '("zymomin" "omixa"))
