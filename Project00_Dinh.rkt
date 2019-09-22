@@ -17,46 +17,36 @@
 ; only three are available in letters.
 ; CODE:
 
-; help
-
-; TODO Figure out how to account for one letter/each
+; TODO: Optimize this flaming piece of shit
 
 (define (find-words letters)
-  (string-downcase (string-join (filter (lambda (x) (eq? (string-length x) 7))
-                       (filter (lambda (x) (contains? (string->list (string-downcase x)) (string->list (string-append* letters)))) wordLst)) ", "))
+  (string-downcase (string-join (filter (lambda (x) (killMe? (string->list (string-downcase x)) (string->list (string-append* letters))))
+          (filter (lambda (x) (eq? (string-length x) 7)) (filter (lambda (x) (contains? (string->list (string-downcase x)) (string->list (string-append* letters)))) wordLst))) ", "))
 )
 
-; BOTH PASSED ARGUMENTS ARE CHAR LISTS
-(define (contains? list-a list-b) ; A = (a z i m i n o), B = (z y m o m i n o i x a)
+(define (contains? list-a list-b)
   (cond
-    [(and (empty? list-b) (empty? list-a)) #t] ; both list-a and list-b are composed of each other.
-    [(and (empty? list-b) (not (empty? list-a))) #f] ; list-a and list-b are inherently different  
+    [(and (empty? list-b) (empty? list-a)) #t] 
+    [(and (empty? list-b) (not (empty? list-a))) #f]
     [else (contains? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
   )
 )
 
-; Currently prints:
-;                  Amazona, ammonia, amninia, Anamnia, anonyma, azimino, Izanami, mammoni, Manannn,
-;                  mannaia, manomin, Manxman, manzana, Manzoni, maximin, Maximon, Mazzini, minimax,
-;                  Moazami, monaxon, Monimia, monnion, monoazo, Monomya, mononym, Monozoa, moonman,
-;                  Naamana, Naamann, Nanaimo, omniana, Oxonian, oxonian, xoanona, yamamai, yamanai,
-;                  Yannina, Zannini, Zanonia, Zizania, zizania, zoonomy, zymomin"
+(define (killMe? list-a list-b)
+  (cond
+    [(empty? list-a) #t]
+    [(<= (how-many list-a (first list-a)) (how-many list-b (first list-a))) (killMe? (rest list-a) list-b)]
+    [else #f]
+   )
+)
 
-
-; Should output- azimino, mammoni, maximin, maximon, minimax, monimia, monomya, zymomin
-  
-
-;(contains? '(a z i m i n o) '(z y m o m i n o i x a))
-;(contains? '(m a m m o n i) '(z y m o m i n o i x a))
-;(contains? '(m a x i m i n) '(z y m o m i n o i x a))
-;(contains?  '(M a x i m o n) '(z y m o m i n o i x a))
-;(contains? '(m i n i m a x) '(z y m o m i n o i x a))
-;(contains? '(m o n i m i a) '(z y m o m i n o i x a))
-;(contains? '(m o n o m y a) '(z y m o m i n o i x a))
-;(contains? '(z y m o m i n) '(z y m o m i n o i x a))
-
+(define (how-many items char)
+  (define r (regexp (format "[^~a]" char)))
+  (string-length (regexp-replace* r (list->string items) ""))
+)
 
 (find-words '("zymomin" "omixa"))
+
 
 
 
