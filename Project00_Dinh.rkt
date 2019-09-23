@@ -26,7 +26,7 @@
 
 (define (contains? list-a list-b)
   (cond
-    [(and (empty? list-b) (empty? list-a) (count? list-a list-b)) #t] 
+    [(and (empty? list-b) (empty? list-a)) #t] 
     [(and (empty? list-b) (not (empty? list-a))) #f]
     [else (contains? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
   )
@@ -35,13 +35,18 @@
 (define (count? list-a list-b)
   (cond
     [(empty? list-a) #t]
-    [(<= (how-many list-a (first list-a)) (how-many list-b (first list-a))) (count? (rest list-a) list-b)]
+  ;  [(<= (how-many list-a (first list-a)) (how-many list-b (first list-a))) (count2? (rest list-a) list-b)]
+    [(<= (count (lambda (x) (eq? x (first list-a))) list-a) (count (lambda (x) (eq? x (first list-a))) list-b)) (count? (rest list-a) list-b)]
     [else #f]
    )
 )
 
-(define (how-many word char)
-  (count (lambda (x) (eq? x char)) word)
+;(define (how-many word char)
+ ; (count (lambda (x) (eq? x char)) word)
+;)
+
+(define (how-many list-a list-b)
+  (count (lambda (x) (eq? x list-b)) list-a)
 )
 
 (find-words '("zymomin" "omixa"))
