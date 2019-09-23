@@ -20,22 +20,22 @@
 ; TODO: Optimize this flaming piece of shit
 
 (define (find-words letters)
-  (string-downcase (string-join (filter (lambda (x) (killMe? (string->list (string-downcase x)) (string->list (string-downcase (string-append* letters)))))
+  (string-downcase (string-join (filter (lambda (x) (count? (string->list (string-downcase x)) (string->list (string-downcase (string-append* letters)))))
           (filter (lambda (x) (eq? (string-length x) 7)) (filter (lambda (x) (contains? (string->list (string-downcase x)) (string->list (string-append* letters)))) wordLst))) ", "))
 )
 
 (define (contains? list-a list-b)
   (cond
-    [(and (empty? list-b) (empty? list-a)) #t] 
+    [(and (empty? list-b) (empty? list-a) (count? list-a list-b)) #t] 
     [(and (empty? list-b) (not (empty? list-a))) #f]
     [else (contains? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
   )
 )
 
-(define (killMe? list-a list-b)
+(define (count? list-a list-b)
   (cond
     [(empty? list-a) #t]
-    [(<= (how-many list-a (first list-a)) (how-many list-b (first list-a))) (killMe? (rest list-a) list-b)]
+    [(<= (how-many list-a (first list-a)) (how-many list-b (first list-a))) (count? (rest list-a) list-b)]
     [else #f]
    )
 )
