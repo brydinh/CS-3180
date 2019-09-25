@@ -47,8 +47,8 @@
 (define (not-char-length? word letters)
   (cond
     [(empty? word) #f]
-    [(<= (count (lambda (x) (eq? x (first word))) word) (count (lambda (x) (eq? x (first word))) letters)) (not-char-length? (rest word) letters)]
-    [else #t]
+    [(> (count (lambda (x) (eq? x (first word))) word) (count (lambda (x) (eq? x (first word))) letters)) #t]
+    [else (not-char-length? (rest word) letters)]
    )
 )
 
