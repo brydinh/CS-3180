@@ -32,26 +32,27 @@
 ;; anagram?: Returns true if words in words.txt are composed of the same characters,
 ;;           and is <= number of characters of the string list being passed.
 ;;           Uses helper function not-char-length? for character check. 
-(define (anagram? list-a list-b)
+(define (anagram? word letters)
   (cond
-    [(and (empty? list-b) (empty? list-a)) #t] 
-    [(and (empty? list-b) (not (empty? list-a))) #f]
-    [(not-char-length? list-a list-b) #f]
-    [else (anagram? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
+    [(and (empty? letters) (empty? word)) #t] 
+    [(and (empty? letters) (not (empty? word))) #f]
+    [(not-char-length? word letters) #f]
+    [else (anagram? (filter (lambda (x) (not (equal? (first letters) x))) word) (rest letters))]
   )
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; not-char-length?: Returns true if the characters in the word are <= to the
-;;                   number of characters of the string list being passed.
-(define (not-char-length? list-a list-b)
+;; not-char-length?: Returns true if the characters in the word are greater than
+;;                   the number of characters of the string list being passed.
+(define (not-char-length? word letters)
   (cond
-    [(empty? list-a) #f]
-    [(<= (count (lambda (x) (eq? x (first list-a))) list-a) (count (lambda (x) (eq? x (first list-a))) list-b)) (not-char-length? (rest list-a) list-b)]
+    [(empty? word) #f]
+    [(<= (count (lambda (x) (eq? x (first word))) word) (count (lambda (x) (eq? x (first word))) letters)) (not-char-length? (rest word) letters)]
     [else #t]
    )
 )
 
+;; Test-cases
 (find-words '("zymomin" "omixa"))
 
 
