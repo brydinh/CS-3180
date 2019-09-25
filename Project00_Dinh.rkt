@@ -17,31 +17,29 @@
 ; only three are available in letters.
 ; CODE:
 
-; TODO: Optimize this flaming piece of shit
-
-(define (find-words letters)
-  (string-downcase (string-join (filter (lambda (x) (count? (string->list (string-downcase x)) (string->list (string-downcase (string-append* letters)))))
-          (filter (lambda (x) (eq? (string-length x) 7)) (filter (lambda (x) (contains? (string->list (string-downcase x)) (string->list (string-append* letters)))) wordLst))) ", "))
+(define (find-words letters)  
+  (string-downcase (string-join (filter (lambda (x) (eq? (string-length x) 7))
+                                       (filter (lambda (x) (anagram? (string->list (string-downcase x)) (string->list (string-downcase (string-append* letters))))) wordLst)) ", "))
 )
 
-(define (contains? list-a list-b)
+(define (anagram? list-a list-b)
   (cond
     [(and (empty? list-b) (empty? list-a)) #t] 
     [(and (empty? list-b) (not (empty? list-a))) #f]
-    [else (contains? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
+    [(not-char-length? list-a list-b) #f]
+    [else (anagram? (filter (lambda (x) (not (equal? (first list-b) x))) list-a) (rest list-b))]
   )
 )
 
-(define (count? list-a list-b)
+(define (not-char-length? list-a list-b)
   (cond
-    [(empty? list-a) #t]
-    [(<= (count (lambda (x) (eq? x (first list-a))) list-a) (count (lambda (x) (eq? x (first list-a))) list-b)) (count? (rest list-a) list-b)]
-    [else #f]
+    [(empty? list-a) #f]
+    [(<= (count (lambda (x) (eq? x (first list-a))) list-a) (count (lambda (x) (eq? x (first list-a))) list-b)) (not-char-length? (rest list-a) list-b)]
+    [else #t]
    )
 )
 
 (find-words '("zymomin" "omixa"))
-
 
 
 
