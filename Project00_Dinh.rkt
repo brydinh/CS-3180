@@ -17,11 +17,21 @@
 ; only three are available in letters.
 ; CODE:
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; find-words: Filters out words in words.txt that do not have a string-legnth of 7
+;;             or are not an anagram of the letters being passed. Uses helper function
+;;             anagram? for main filter. 
 (define (find-words letters)  
-  (string-downcase (string-join (filter (lambda (x) (eq? (string-length x) 7))
-                                       (filter (lambda (x) (anagram? (string->list (string-downcase x)) (string->list (string-downcase (string-append* letters))))) wordLst)) ", "))
+  (string-downcase (string-join
+                    (filter (lambda (x) (eq? (string-length x) 7))
+                            (filter (lambda (x) (anagram? (string->list (string-downcase x))
+                                                          (string->list (string-downcase (string-append* letters))))) wordLst)) ", "))
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; anagram?: Returns true if words in words.txt are composed of the same characters,
+;;           and is <= number of characters of the string list being passed.
+;;           Uses helper function not-char-length? for character check. 
 (define (anagram? list-a list-b)
   (cond
     [(and (empty? list-b) (empty? list-a)) #t] 
@@ -31,6 +41,9 @@
   )
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; not-char-length?: Returns true if the characters in the word are <= to the
+;;                   number of characters of the string list being passed.
 (define (not-char-length? list-a list-b)
   (cond
     [(empty? list-a) #f]
