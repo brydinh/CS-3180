@@ -18,7 +18,7 @@
 ; CODE:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; find-words: Filters out words in words.txt that do not have a string-legnth of 7
+;; find-words: Filters out words in words.txt that do not have a string-length of 7
 ;;             or are not an anagram of the letters being passed. Uses helper function
 ;;             anagram? for main filter. 
 (define (find-words letters)  
@@ -30,8 +30,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; anagram?: Returns true if words in words.txt are composed of the same characters,
-;;           and is <= number of characters of the string list being passed.
-;;           Uses helper function not-char-length? for character check. 
+;;           and is not greater than the number of characters of the string list
+;;           being passed. Uses helper function not-char-length? for character check. 
 (define (anagram? word letters)
   (cond
     [(and (empty? letters) (empty? word)) #t] 
