@@ -3,6 +3,12 @@
 
 (define wordLst (read-lines "words.txt"))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CS 3180 Fall '19
+;; Project 00
+;; Brian Dinh
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; CONTRACT: find-words : letters -> String
 ; PURPOSE: Returns a string of comma delimited dictionary words 7
 ; letters long and in alphabetical order that can be composed of
@@ -19,7 +25,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; find-words: Filters out words in words.txt that do not have a string-length of 7
-;;             or are not an anagram of the letters being passed. Uses helper function
+;;             or is not an anagram of the letters being passed. Uses helper function
 ;;             anagram? for main filter. 
 (define (find-words letters)  
   (string-downcase (string-join
@@ -34,9 +40,9 @@
 ;;           being passed. Uses helper function not-char-length? for character check. 
 (define (anagram? word letters)
   (cond
+    [(not-char-length? word letters) #f]
     [(and (empty? letters) (empty? word)) #t] 
     [(and (empty? letters) (not (empty? word))) #f]
-    [(not-char-length? word letters) #f]
     [else (anagram? (filter (lambda (x) (not (equal? (first letters) x))) word) (rest letters))]
   )
 )
@@ -53,7 +59,8 @@
 )
 
 ;; Test-cases
-(find-words '("zymomin" "omixa"))
+(displayln (find-words '("zymomin" "omixa")))
+(displayln (find-words '("abcdefg" "abdfg" "abcdefg" "qed")))
 
 
 

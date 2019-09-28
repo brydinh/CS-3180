@@ -1,4 +1,9 @@
-def find_words(letters)
+#################################################################################
+## CS 3180 Fall '19
+## Project 00
+## Brian Dinh
+#################################################################################
+
 '''
     CONTRACT: find-words : letters -> String
     PURPOSE: Returns a string of comma delimited dictionary words 7
@@ -14,5 +19,43 @@ def find_words(letters)
     only three are available in letters.
     CODE:
     '''
-        pass # Put your implementation here instead of pass
-)
+#################################################################################
+## find_words: Filters out words in words.txt that do not have a string-length of 7
+##             or is not an anagram of the letters being passed. Uses helper function
+##             isAnagram for main filter.
+def find_words(letters):
+    allWordsLowerCase = [line.strip().lower() for line in open ("words.txt", 'r')]
+    
+    allAnagramWords = [word for word in allWordsLowerCase if  (7 == len(word)) and
+                       isAnagram(word, "".join(letters))]
+    
+    print(', '.join(word for word in allAnagramWords))
+
+#################################################################################
+## isAnagram: Returns true if words in words.txt are composed of the same characters,
+##            and is not greater than the number of characters of the string list
+##            being passed. Uses helper function notCharLength for character check.
+def isAnagram(word, letters):
+    if notCharLength(word, letters):
+        return False
+    if not letters and not word:
+        return True
+    if not letters and word:
+        return False
+    else:
+        return isAnagram(list(filter (lambda x: letters[0] != x, word)), letters[1:])
+
+#################################################################################
+## notCharLength: Returns true if the number of characters in the word are greater
+##                than the number of characters of the string list being passed.
+def notCharLength(word, letters):
+    if not word:
+        return False
+    if word.count(word[0]) > letters.count(word[0]):
+        return True
+    else:
+        return notCharLength(word[1:], letters)
+
+## Test-cases
+find_words (("zymomin" "omixa"))
+find_words (("abcdefg" "abdfg" "abcdefg" "qed"))
