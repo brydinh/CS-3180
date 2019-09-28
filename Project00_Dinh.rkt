@@ -61,6 +61,3 @@
 ;; Test-cases
 (displayln (find-words '("zymomin" "omixa")))
 (displayln (find-words '("abcdefg" "abdfg" "abcdefg" "qed")))
-
-
-
