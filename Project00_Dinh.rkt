@@ -38,7 +38,7 @@
 ;; anagram?: Returns true if words in words.txt are composed of the same characters,
 ;;           and is not greater than the number of characters of the string list
 ;;           being passed. Uses helper function not-char-length? for character check. 
-(define (anagram? word letters)
+(define (anagram? word letters) 
   (cond
     [(not-char-length? word letters) #f]
     [(and (empty? letters) (empty? word)) #t] 
@@ -48,7 +48,7 @@
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; not-char-length?: Returns true if the characters in the word are greater than
+;; not-char-length?: Returns true if the number of characters in the word are greater than
 ;;                   the number of characters of the string list being passed.
 (define (not-char-length? word letters)
   (cond
