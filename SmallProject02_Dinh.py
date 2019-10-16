@@ -3,7 +3,7 @@ import sys
 ######################################################################
 # Scanner generation
 tokens = ('ADD', 'MULTIPLY', 'SUBTRACT', 'DIVIDE', 'NUM', 'EOF', 'LPAREN',
-          'RPAREN', 'SYM', 'ERROR')
+          'RPAREN', 'SYM', 'ERROR', 'comment')
 t_ignore = ' \t\r'
 
 def t_ADD(t): r'[+]'; return t
@@ -25,7 +25,7 @@ def t_LPAREN(t): r'[(]'; return t
 def t_RPAREN(t): r'[)]'; return t
 
 def t_newline(t): r'\n+'; t.lexer.lineno += t.value.count("\n")
-def t_comment(dummy_t): r'\#.*'; pass
+def t_comment(t): r'\#.*'; return t #pass # will skip over comment
 
 def t_error(t):
     ''' Prints error messages when scan fails '''

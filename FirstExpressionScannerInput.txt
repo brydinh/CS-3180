@@ -1,1 +1,13 @@
 ( ) + - * / a0 cd m @
+
+# A scanner text input
+1000
+2356789
+
+77 +    30*3 +1 # A longer expression
+
+@
+23049120394
++
+-
+1
