@@ -4,7 +4,7 @@
 ## Brian Dinh
 ##
 ## Pulled directly from ShiftReduceOOWhileIfFunctionRecursionNamedArgsAndClosures.py
-## and modified to fit Project 01 requirements. All credit goes to The Erik M Buck of course
+## and modified to fit Project 01 requirements.
 #################################################################################
 
 import sys
@@ -14,8 +14,8 @@ if sys.version_info[0] >= 3:
     raw_input = input
 
 ######################################################################
-# Scanner and
-tokens = ('NUMBER', 'SYMBOL', 'PRINT', 'WHILE', 'IF', 'ELSE', 'DEF', 'CALL', 'DOWHILE')
+# Scanner
+tokens = ('NUMBER', 'SYMBOL', 'PRINT', 'WHILE', 'IF', 'ELSE', 'DEF', 'CALL', 'DO')
 literals = ['+', '-', '*', '/', '(', ')', '=', '{', '}', ';', ',', ':']
 
 def t_COMMENT(t):
@@ -47,8 +47,8 @@ def t_WHILE(t):
    r'@while'
    return t
 
-def t_DOWHILE(t):
-    r'@dowhile'
+def t_DO(t):
+    r'@do'
     return t
 
 def t_SYMBOL(t):
@@ -235,18 +235,19 @@ class WhileNode:
        
        return result
 
-class DoWhileNode:
-    def __init__(self, cond, body):
-        self.cond = cond
-        self.body = body
 
-    def calc(self):
-        result = None
-        condValue = self.cond.calc()
-        while(condValue):
-            result = self.body.calc()
-            condValue = self.cond.calc()
-        return result
+#class DoWhileNode:
+#    def __init__(self, body, whileBody):
+#        self.cond = cond
+#        self.body = body
+#
+#    def calc(self):
+#        result = None
+#        condValue = self.cond.calc()
+#        while(condValue):
+#            result = self.body.calc()
+#            condValue = self.cond.calc()
+#        return result
 
 
 ######################################################################
@@ -342,8 +343,8 @@ def p_statement_while(p):
    ''' statement : WHILE '(' expression ')' statement '''
    cond=p[3]; body=p[5]; p[0] = WhileNode(cond, body)
 
-def p_statement_dowhile(p):
-    cond=p[3]; body=p[5]; p[0] = DoWhileNode(cond, body)
+       #def p_statement_dowhile(p):
+#cond=p[3]; body=p[5]; p[0] = DoWhileNode(cond, body)
 
 def p_statement_compound(p):
    ''' statement : '{' block_list '}' '''

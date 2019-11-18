@@ -5,6 +5,21 @@
 #################################################################################
 
 #################################################################################
+## Expected Outputs:
+## 2
+## -2
+## 5
+## 0
+## 5
+## 4
+## 3
+## 2
+## 1
+## 0
+#################################################################################
+
+
+#################################################################################
 ## [3 points] Enhance your parser to handle subtraction and division. Create suitable
 ## "node" instances for subtraction and division. Demonstrate that subtraction and 
 ## division work with your interpreter.
@@ -25,8 +40,10 @@ c = a / b; # handles division, should equal 2
 d = b - a; # handles subtraction, should equal -2
 
 
+# c should print out 2
+# d should print out -2
 @print(c); # shows that division of the assigned variables works (is equal to 2)
-@print(d); # shows that subtraction of the assigned variables works (is equal to 2)
+@print(d); # shows that subtraction of the assigned variables works (is equal to -2)
 
 # also shows that values assigned in variables may be used in other expressions
 
@@ -38,17 +55,27 @@ d = b - a; # handles subtraction, should equal -2
 #################################################################################
 
 
-@if(e){ # e doesn't exist, therefore expected b value should be overwritten to 5.
-b = 2;
-}
-@else b = 5;
+# 0 is false, 1 is true
 
-@if(c){ # c exists, therefore b should stay the same at 5.
-b = 5;
-}
-@else b = 0;
+x = 1; 
 
-@print(b); # shows that b stays at 5. Therefore conditional statements (if and else) work.
+# x equals 1 (TRUE), therefore expected x should be overwritten to 0 (set to FALSE).
+@if(x){
+x = 0;
+}
+@else x = 1;
+
+@print(x); # should print out 0 (FALSE)
+
+# x equals 0 (FALSE), therefore x should should be overwritten to 1 (set to TRUE).
+@if(x){
+x = 0;
+}
+@else x = 1;
+
+@print(x); # should print out 1 (TRUE)
+
+# **Therefore conditional statements (if and else) work.**
 
 
 #################################################################################
@@ -58,3 +85,18 @@ b = 5;
 ## Turing Complete programming language (more or less). See https://en.wikipedia.org/wiki/## Do_while_loop
 #################################################################################
 
+
+# Testing out the while loop functionality
+y = 5;
+
+@while(y)
+{
+ @print(y);
+ y = y - 1;
+}
+# Should print 5 4 3 2 1 0
+
+
+#@do {
+#//gets executed at least once
+#} @while (condition);
