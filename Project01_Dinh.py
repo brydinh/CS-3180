@@ -15,7 +15,7 @@ if sys.version_info[0] >= 3:
 
 ######################################################################
 # Scanner and
-tokens = ('NUMBER', 'SYMBOL', 'PRINT', 'WHILE', 'IF', 'ELSE', 'DEF', 'CALL',) #'DOWHILE')
+tokens = ('NUMBER', 'SYMBOL', 'PRINT', 'WHILE', 'IF', 'ELSE', 'DEF', 'CALL', 'DOWHILE')
 literals = ['+', '-', '*', '/', '(', ')', '=', '{', '}', ';', ',', ':']
 
 def t_COMMENT(t):
@@ -47,9 +47,9 @@ def t_WHILE(t):
    r'@while'
    return t
 
-#def t_DOWHILE(t):
-#    r'@dowhile'
-#    return t
+def t_DOWHILE(t):
+    r'@dowhile'
+    return t
 
 def t_SYMBOL(t):
     r'[a-zA-Z_]+[a-zA-Z_0-9]*'
@@ -235,18 +235,18 @@ class WhileNode:
        
        return result
 
-#class DoWhileNode:
-#    def __init__(self, cond, body):
-#        self.cond = cond
-#        self.body = body
-#
-#    def calc(self):
-#        result = None
-#        condValue = self.cond.calc()
-#        while(condValue):
-#            result = self.body.calc()
-#            condValue = self.cond.calc()
-#        return result
+class DoWhileNode:
+    def __init__(self, cond, body):
+        self.cond = cond
+        self.body = body
+
+    def calc(self):
+        result = None
+        condValue = self.cond.calc()
+        while(condValue):
+            result = self.body.calc()
+            condValue = self.cond.calc()
+        return result
 
 
 ######################################################################
@@ -342,8 +342,8 @@ def p_statement_while(p):
    ''' statement : WHILE '(' expression ')' statement '''
    cond=p[3]; body=p[5]; p[0] = WhileNode(cond, body)
 
-#def p_statement_dowhile(p):
-#    cond=p[3]; body=p[5]; p[0] = DoWhileNode(cond, body)
+def p_statement_dowhile(p):
+    cond=p[3]; body=p[5]; p[0] = DoWhileNode(cond, body)
 
 def p_statement_compound(p):
    ''' statement : '{' block_list '}' '''
