@@ -1,0 +1,60 @@
+#################################################################################
+## CS 3180 Fall '19
+## Project 01 Test Cases
+## Brian Dinh
+#################################################################################
+
+#################################################################################
+## [3 points] Enhance your parser to handle subtraction and division. Create suitable
+## "node" instances for subtraction and division. Demonstrate that subtraction and 
+## division work with your interpreter.
+##
+## [3 points] Enhance your parser to allow use of symbolic variables in as well as 
+## NUM. Provide an assignment operator that stores the result of an expression to a 
+## symbolic variable. Demonstrate that assignment works. Demonstrate that values 
+## assigned to variables may be used in other expressions.
+#################################################################################
+
+
+# Let assignment operator be '='
+
+a = 4; # assigning int to a variable
+b = 2; # assigning int to a variable
+
+c = a / b; # handles division, should equal 2
+d = b - a; # handles subtraction, should equal -2
+
+
+@print(c); # shows that division of the assigned variables works (is equal to 2)
+@print(d); # shows that subtraction of the assigned variables works (is equal to 2)
+
+# also shows that values assigned in variables may be used in other expressions
+
+
+#################################################################################
+## [3 points] Enhance your parser to allow "if" and "if else" based conditional code 
+## execution. Google it if necessary. Demonstrate that you interpreter conditionally 
+## executes code.
+#################################################################################
+
+
+@if(e){ # e doesn't exist, therefore expected b value should be overwritten to 5.
+b = 2;
+}
+@else b = 5;
+
+@if(c){ # c exists, therefore b should stay the same at 5.
+b = 5;
+}
+@else b = 0;
+
+@print(b); # shows that b stays at 5. Therefore conditional statements (if and else) work.
+
+
+#################################################################################
+## [3 points] Enhance your parser to allow "do while" loops that conditionally evaluate 
+## expressions as long as a condition variable remains non-zero. Demonstrate that your 
+## interpreter correctly executes "do while" loops. Congratulations: You have created a 
+## Turing Complete programming language (more or less). See https://en.wikipedia.org/wiki/## Do_while_loop
+#################################################################################
+
