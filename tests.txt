@@ -6,16 +6,21 @@
 
 #################################################################################
 ## Expected Outputs:
-## 2
-## -2
-## 5
-## 0
-## 5
-## 4
-## 3
-## 2
-## 1
-## 0
+## 2.0
+## -2.0
+## 0.0
+## 1.0
+## 5.0
+## 4.0
+## 3.0
+## 2.0
+## 1.0
+## 5.0
+## 4.0
+## 3.0
+## 2.0
+## 1.0
+## 0.0
 #################################################################################
 
 
@@ -94,9 +99,40 @@ y = 5;
  @print(y);
  y = y - 1;
 }
-# Should print 5 4 3 2 1 0
+# Should print 5 4 3 2 1
 
 
-#@do {
-#//gets executed at least once
-#} @while (condition);
+# Do-While implementation. Should execute ONCE before going through conditional logic
+
+y = 5;
+
+@do (y)
+{
+ @print(y);
+ y = y - 1;
+}
+# Should print 5 4 3 2 1 
+
+x = 0;
+@do (x)
+{
+ @print(x);
+ x = x - 1;
+}
+# Should print 0, because it executes at least once in a do-while
+
+
+x = 0;
+@while (x)
+{
+ @print(x);
+ x = x - 1;
+}
+# Shouldn't print anything because it is automatically FALSE (equal to 0)
+
+
+
+
+
+
+

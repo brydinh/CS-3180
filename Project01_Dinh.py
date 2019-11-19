@@ -14,8 +14,9 @@ if sys.version_info[0] >= 3:
     raw_input = input
 
 ######################################################################
-# Scanner
-tokens = ('NUMBER', 'SYMBOL', 'PRINT', 'WHILE', 'IF', 'ELSE', 'DEF', 'CALL', 'DO')
+## Scanner
+######################################################################
+tokens = ('NUMBER', 'SYMBOL', 'PRINT', 'WHILE', 'IF', 'ELSE', 'DEF', 'CALL', 'DO') ## Added do to token list
 literals = ['+', '-', '*', '/', '(', ')', '=', '{', '}', ';', ',', ':']
 
 def t_COMMENT(t):
@@ -47,6 +48,7 @@ def t_WHILE(t):
    r'@while'
    return t
 
+## Added for Do-While loop
 def t_DO(t):
     r'@do'
     return t
@@ -77,7 +79,9 @@ import ply.lex as lex
 lex.lex()
 
 ######################################################################
-#
+## Parser
+######################################################################
+
 import operator
 
 globalFunctions = {}
@@ -95,7 +99,7 @@ class FunctionNode:
       for v in stack[0]:
          envcopy[v] = stack[0][v]
          print("{} <- {}".format(v, envcopy[v] ))
-      # Add captured top of stack (replace gloabls if there is conflict)
+      # Add captured top of stack (replace globals if there is conflict)
       envcopy.update(stack[-1])
       self.functionCompoundStatement.env = envcopy
       globalFunctions[self.name] = self.functionCompoundStatement
@@ -133,7 +137,7 @@ class BinaryNode:
 class CompoundStatementNode:
    def __init__(self, listOfStatementNodes):
       self.listOfStatementNodes = listOfStatementNodes[:]
-      #print(self.listOfStatementNodes)
+   #print(self.listOfStatementNodes)
       
    def calc(self):
       result = None
@@ -225,30 +229,36 @@ class WhileNode:
     def __init__(self, cond, body):
        self.cond = cond
        self.body = body
-       
+    
     def calc(self):
        result = None
        condValue = self.cond.calc()
        while(condValue):
           result = self.body.calc()
           condValue = self.cond.calc()
-       
        return result
 
+# Implementation for Do-While Loop
+class DoNode:
+    def __init__ (self, cond, body):
+        self.cond = cond
+        self.body = body
 
-#class DoWhileNode:
-#    def __init__(self, body, whileBody):
-#        self.cond = cond
-#        self.body = body
-#
-#    def calc(self):
-#        result = None
-#        condValue = self.cond.calc()
-#        while(condValue):
-#            result = self.body.calc()
-#            condValue = self.cond.calc()
-#        return result
-
+    def calc(self):
+        # execute once
+        result = self.body.calc()
+        condValue = self.cond.calc()
+        
+        # loop afterwards
+        # since 0 is the only way for it to return false (no implementations for comparison operatos),
+        # the only way to break out of these loops is to decrement in our programming language
+        if(condValue <= 0):
+            result = None
+        else:
+            while(condValue):
+                result = self.body.calc()
+                condValue = self.cond.calc()
+        return result
 
 ######################################################################
 # Parsing rules
@@ -261,6 +271,7 @@ class WhileNode:
 # statement :: SYMBOL '=' expression ';'
 #             | IF '(' expression ')' statement
 #             | IF '(' expression ')' statement ELSE statement
+#             | DO '(' expression ')' statement
 #             | WHILE '(' expression ')' statement
 #             | PRINT '(' expression ')' ';'
 #             | '{' block_list '}'
@@ -343,8 +354,10 @@ def p_statement_while(p):
    ''' statement : WHILE '(' expression ')' statement '''
    cond=p[3]; body=p[5]; p[0] = WhileNode(cond, body)
 
-       #def p_statement_dowhile(p):
-#cond=p[3]; body=p[5]; p[0] = DoWhileNode(cond, body)
+# Added for Do-While
+def p_statement_do(p):
+    ''' statement : DO '(' expression ')' statement '''
+    cond=p[3]; body=p[5]; p[0] = DoNode(cond, body)
 
 def p_statement_compound(p):
    ''' statement : '{' block_list '}' '''
@@ -375,10 +388,12 @@ def p_expression_binop(p):
                   | expression '/' expression'''
     if p[2] == '+':
         a= p[1]; b = p[3]; p[0] = BinaryNode(a, b, operator.add)
+    # handles for subtraction
     elif p[2] == '-':
         a= p[1]; b = p[3]; p[0] = BinaryNode(a, b, operator.sub)
     elif p[2] == '*':
         a= p[1]; b = p[3]; p[0] = BinaryNode(a, b, operator.mul)
+    # handles for division
     # changed to truediv for python 3
     elif p[2] == '/':
         a= p[1]; b = p[3]; p[0] = BinaryNode(a, b, operator.truediv)
@@ -407,7 +422,8 @@ yacc.yacc()
 #################################################################################
 ## DRIVER PROGRAM
 #################################################################################
-# Have it be required that the user provides a test case file. In this case we are using my test case file I written (fuck.txt).
+
+# Have it be required that the user provides a test case file. In this case we are using my test case file I written (tests.txt).
 if 1 < len(sys.argv):
     with open(sys.argv[1], 'r') as myfile:
         data=myfile.read()
