@@ -12,7 +12,10 @@
 
 [2 points] Describe two advantages and two disadvantages of automatic memory garbage collection as implemented by Java.
 	
-	-
+	- Advantage 1:
+	- Advantage 2:
+	- Disadvantage 1:
+	- Disadvantage 2:
 
 
   
