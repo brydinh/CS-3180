@@ -1,0 +1,18 @@
+[1 point] Identify one or more topics covered by the course that you found interesting or particularly informative.
+	
+	- I found lambda functions to be very interesting as you can cut 50 lines of java code into 1 racket line. Simplifies code by a lot. 
+
+[1 point] Identify one topic covered by the course that you found most confusing or least informative.
+	
+	- Didn't really understand BNF
+
+[1 point] Provide constructive feedback regarding the assignments for the course. There is no wrong answer as long as the feedback contains specific recommendations.
+	
+	- The assignments are fair for the course. The only gripe I had was with the grading. The requirements are NOT specific in the assignments. For example, I missed points on the on the syntax of a do-while loop. The requirement states to implement a do-while loop. It does not state anywhere we needed to follow the ACTUAL syntax of a do-while loop. Next time you need to state that the syntax needs to follow specific guidelines or you will get varied answers.
+
+[2 points] Describe two advantages and two disadvantages of automatic memory garbage collection as implemented by Java.
+	
+	-
+
+
+  
