@@ -53,15 +53,15 @@
 ;; equal(enqueue(Q, X), Q) -> False     ;; enqueue() produces a different queue
 ;;    - also -
 ;; AXIOM: For all Q, Q1 in Queue and X, X1  ;; Specifies criteria for equality
-;; equal(push(S, X), push(S1, X1)) -> 
+;; equal(enqueue(S, X), enqueue(S1, X1)) -> 
 ;;     True if equal(S, S1) and X is equal X1
 ;;     else False
 ;;    - also -
-;; AXIOM: For all S, S1 in Stack
-;; equal(S, S1) -> equal(S1, S)       ;; Order of comparison doesn't matter
+;; AXIOM: For all Q, Q1 in Queue
+;; equal(Q, Q1) -> equal(Q1, Q)       ;; Order of comparison doesn't matter
 ;;    - also -
-;; AXIOM: For all S in Stack          ;; Identity property of equal()
-;; equal(S, S) -> True
+;; AXIOM: For all Q in Queue          ;; Identity property of equal()
+;; equal(Q, Q) -> True
 
 ;; Constructor
 ;; queue -> Queue
