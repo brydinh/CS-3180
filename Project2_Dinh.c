@@ -37,7 +37,7 @@
 // dequeue(enqueue(Q, X)) -> Q          // enqueue() can be undone via dequeue()
 //
 // AXIOM: For all Q in Queue
-// equals(enqueue(S, X), S) -> False    // enqueue() returns a different/modified Queue
+// equals(enqueue(Q, X), Q) -> False    // enqueue() returns a different/modified Queue
 //
 // OBSERVER AXIOMS
 //
@@ -58,8 +58,8 @@
 // equal(enqueue(Q, X), Q) -> False     ;; enqueue() produces a different queue
 //    - also -
 // AXIOM: For all Q, Q1 in Queue and X, X1  ;; Specifies criteria for equality
-// equal(enqueue(S, X), enqueue(S1, X1)) ->
-//     True if equal(S, S1) and X is equal X1
+// equal(enqueue(Q, X), enqueue(Q1, X1)) ->
+//     True if equal(Q, Q1) and X is equal X1
 //     else False
 //    - also -
 // AXIOM: For all Q, Q1 in Queue
@@ -87,7 +87,7 @@ struct QueueNode
 
 struct Queue
 {
-    struct QueueNode *head, *tail;
+    struct QueueNode* head, *tail;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ struct Queue* makeQueue()
 // push(Q, X) -> Queue
 // PURPOSE:  Adds new Queue node to the end of the the queue
 // CODE:
-void enqueue(struct Queue *q, int num)
+void enqueue(struct Queue* q, int num)
 {
     // Create new Queue Node
     struct QueueNode* temp = (struct QueueNode*)malloc(sizeof(struct QueueNode));
@@ -201,7 +201,7 @@ void enqueue(struct Queue *q, int num)
 // CONTRACT: clear() : Queue -> Queue
 // PURPOSE:  removes all items from Queue, or error
 // CODE:
-void clear(struct Queue *q)
+void clear(struct Queue* q)
 {
     if (q->head == NULL)
     {
@@ -209,7 +209,7 @@ void clear(struct Queue *q)
     }
     else
     {
-        struct QueueNode *temp = q->head;
+        struct QueueNode* temp = q->head;
         while(q->head != NULL)
         {
             temp = q->head;
@@ -235,7 +235,7 @@ void dequeue(struct Queue* q)
     }
     else
     {
-        struct QueueNode *temp = q->head;
+        struct QueueNode* temp = q->head;
         //printf("Removing node with data: %d\n", temp->data);
         q->head = q->head->next;
         free(temp);
@@ -251,7 +251,7 @@ void dequeue(struct Queue* q)
 // CONTRACT: equals() : Queue, Queue -> Int(Boolean)
 // PURPOSE:  return True if and only if two Queues have the same content in the same order
 // CODE:
-int equals(struct Queue *a, struct Queue *b)
+int equals(struct Queue* a, struct Queue* b)
 {
     if(a->head == NULL && b->head == NULL)
     {
@@ -284,7 +284,7 @@ int equals(struct Queue *a, struct Queue *b)
 // CONTRACT: size() : Queue -> Natural
 // PURPOSE:  return the number of item in a Queue
 // CODE:
-int size(struct Queue *q)
+int size(struct Queue* q)
 {
     int count = 0;
     struct QueueNode* temp = q->head;
