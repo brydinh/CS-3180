@@ -1,0 +1,138 @@
+#################################################################################
+## CS 3180 Fall '19
+## Project 01 Test Cases
+## Brian Dinh
+#################################################################################
+
+#################################################################################
+## Expected Outputs:
+## 2.0
+## -2.0
+## 0.0
+## 1.0
+## 5.0
+## 4.0
+## 3.0
+## 2.0
+## 1.0
+## 5.0
+## 4.0
+## 3.0
+## 2.0
+## 1.0
+## 0.0
+#################################################################################
+
+
+#################################################################################
+## [3 points] Enhance your parser to handle subtraction and division. Create suitable
+## "node" instances for subtraction and division. Demonstrate that subtraction and 
+## division work with your interpreter.
+##
+## [3 points] Enhance your parser to allow use of symbolic variables in as well as 
+## NUM. Provide an assignment operator that stores the result of an expression to a 
+## symbolic variable. Demonstrate that assignment works. Demonstrate that values 
+## assigned to variables may be used in other expressions.
+#################################################################################
+
+
+# Let assignment operator be '='
+
+a = 4; # assigning int to a variable
+b = 2; # assigning int to a variable
+
+c = a / b; # handles division, should equal 2
+d = b - a; # handles subtraction, should equal -2
+
+
+# c should print out 2
+# d should print out -2
+@print(c); # shows that division of the assigned variables works (is equal to 2)
+@print(d); # shows that subtraction of the assigned variables works (is equal to -2)
+
+# also shows that values assigned in variables may be used in other expressions
+
+
+#################################################################################
+## [3 points] Enhance your parser to allow "if" and "if else" based conditional code 
+## execution. Google it if necessary. Demonstrate that you interpreter conditionally 
+## executes code.
+#################################################################################
+
+
+# 0 is false, 1 is true
+
+x = 1; 
+
+# x equals 1 (TRUE), therefore expected x should be overwritten to 0 (set to FALSE).
+@if(x){
+x = 0;
+}
+@else x = 1;
+
+@print(x); # should print out 0 (FALSE)
+
+# x equals 0 (FALSE), therefore x should should be overwritten to 1 (set to TRUE).
+@if(x){
+x = 0;
+}
+@else x = 1;
+
+@print(x); # should print out 1 (TRUE)
+
+# **Therefore conditional statements (if and else) work.**
+
+
+#################################################################################
+## [3 points] Enhance your parser to allow "do while" loops that conditionally evaluate 
+## expressions as long as a condition variable remains non-zero. Demonstrate that your 
+## interpreter correctly executes "do while" loops. Congratulations: You have created a 
+## Turing Complete programming language (more or less). See https://en.wikipedia.org/wiki/## Do_while_loop
+#################################################################################
+
+
+# Testing out the while loop functionality
+y = 5;
+
+@while(y)
+{
+ @print(y);
+ y = y - 1;
+}
+# Should print 5 4 3 2 1
+
+
+# Do-While implementation. Should execute ONCE before going through conditional logic
+
+y = 5;
+
+@do (y)
+{
+ @print(y);
+ y = y - 1;
+}
+# Should print 5 4 3 2 1 
+
+x = 0;
+@do (x)
+{
+ @print(x);
+ x = x - 1;
+}
+# Should print 0, because it executes at least once in a do-while
+
+
+x = 0;
+@while (x)
+{
+ @print(x);
+ x = x - 1;
+}
+# Shouldn't print anything because it is automatically FALSE (equal to 0)
+
+
+
+
+
+
+
